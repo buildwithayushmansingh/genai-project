@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | EnergyAI</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>WELCOME BACK!</h1>
+
+        <form action="{{ url_for('login') }}" method="POST">
+
+            <!-- Username -->
+            <label for="username">
+                <b class="username">Username:</b>
+            </label>
+
+            <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Username"
+                required
+            >
+
+            <br>
+
+
+            <!-- Password -->
+            <label for="password" class="username">
+                <b>Password:</b>
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Password"
+                required
+            >
+
+            <br>
+
+
+            <!-- Remember Me -->
+            <input
+                type="checkbox"
+                name="remember"
+                value="remember"
+                class="check"
+            >
+
+            <p class="remember">
+                Remember me
+            </p>
+
+
+            <!-- Forgot Password -->
+            <p class="forgot-password">
+                <a href="#">Forgot Password?</a>
+            </p>
+
+            <br>
+
+
+            <!-- Login Button -->
+            <button
+                class="login"
+                type="submit"
+            >
+                Login
+            </button>
+
+
+            <!-- Create Account -->
+            <div class="create-account">
+
+                <p>Don't have an account?</p>
+
+                <a href="{{ url_for('register') }}">
+                    Create Account
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>

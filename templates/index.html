@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI-Based Energy Optimization</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header>
+
+        <nav class="navbar">
+
+
+            <!-- LOGO -->
+
+            <div class="logo">
+
+                <span>⚡</span>
+
+                EnergyAI
+
+            </div>
+
+
+            <!-- NAVIGATION -->
+
+            <ul class="nav-links">
+
+                <li>
+                    <a href="#home">Home</a>
+                </li>
+
+                <li>
+                    <a href="#dashboard">Dashboard</a>
+                </li>
+
+                <li>
+                    <a href="#appliances">Appliances</a>
+                </li>
+
+                <li>
+                    <a href="#prediction">AI Prediction</a>
+                </li>
+
+                <li>
+                    <a href="#optimization">Optimization</a>
+                </li>
+
+                <li>
+                    <a href="#reports">Reports</a>
+                </li>
+
+            </ul>
+
+
+            <!-- ACCOUNT MENU -->
+
+            <div class="account-menu">
+
+
+                <button
+                    class="account-btn"
+                    onclick="toggleAccountMenu()"
+                    type="button">
+
+                    👤
+
+                </button>
+
+
+                <div
+                    class="account-dropdown"
+                    id="accountDropdown">
+
+
+                    <div class="account-username">
+
+                        👤 {{ session["username"] }}
+
+                    </div>
+
+
+                    <div class="dropdown-line"></div>
+
+
+                    <a
+                        href="{{ url_for('logout') }}"
+                        class="logout-btn">
+
+                        Logout
+
+                    </a>
+
+
+                </div>
+
+            </div>
+
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main>
+
+
+        <!-- ================= HOME ================= -->
+
+        <section
+            id="home"
+            class="hero">
+
+
+            <!-- LEFT SIDE -->
+
+            <div class="hero-content">
+
+
+                <p class="tagline">
+
+                    SMART ENERGY • SMART FUTURE
+
+                </p>
+
+
+                <h1>
+
+                    AI-Based
+
+                    <span>Energy</span>
+
+                    <span>Optimization</span>
+
+                </h1>
+
+
+                <p class="hero-description">
+
+                    Monitor your energy consumption,
+                    predict future usage, and get
+                    intelligent recommendations to
+                    reduce energy consumption and
+                    electricity costs.
+
+                </p>
+
+
+                <div class="hero-buttons">
+
+
+                    <a
+                        href="#dashboard"
+                        class="primary-btn">
+
+                        Explore Dashboard
+
+                    </a>
+
+
+                    <a
+                        href="#optimization"
+                        class="secondary-btn">
+
+                        Optimize Energy
+
+                    </a>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- RIGHT SIDE -->
+
+            <div class="hero-right">
+
+
+                <!-- ENERGY OVERVIEW -->
+
+                <div class="energy-card">
+
+
+                    <div class="card-header">
+
+                        <h3>
+                            Energy Overview
+                        </h3>
+
+                        <span>
+                            ● Live
+                        </span>
+
+                    </div>
+
+
+                    <div class="energy-value">
+
+                        <h2>
+                            {{ energy["energy_usage"] }}
+                        </h2>
+
+                        <p>
+                            Today's Energy Usage
+                        </p>
+
+                    </div>
+
+
+                    <div class="energy-stats">
+
+
+                        <div>
+
+                            <span>
+                                Cost
+                            </span>
+
+                            <strong>
+                                ₹{{ energy["cost"] }}
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Saving
+                            </span>
+
+                            <strong>
+                                {{ energy["energy_saved"] }}%
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- ================= ENERGY DATA FORM ================= -->
+
+               <form action="/save-energy" method="POST" class="energy-form">
+
+    <!-- Energy Usage -->
+
+    <div class="input-group">
+
+        <label for="energy_usage">
+            Energy Usage
+        </label>
+
+        <input
+            type="number"
+            id="energy_usage"
+            name="energy_usage"
+            placeholder="Enter usage"
+            step="0.01"
+            min="0"
+            required
+        >
+
+        <span>kWh</span>
+
+    </div>
+
+
+    <!-- Energy Saved -->
+
+    <div class="input-group">
+
+        <label for="energy_saved">
+            Energy Saved
+        </label>
+
+        <input
+            type="number"
+            id="energy_saved"
+            name="energy_saved"
+            placeholder="Enter saving"
+            step="0.01"
+            min="0"
+            required
+        >
+
+        <span>%</span>
+
+    </div>
+
+
+    <!-- Electricity Cost -->
+
+    <div class="input-group">
+
+        <label for="cost">
+            Electricity Cost
+        </label>
+
+        <input
+            type="number"
+            id="cost"
+            name="cost"
+            placeholder="Enter cost"
+            step="0.01"
+            min="0"
+            required
+        >
+
+        <span>₹</span>
+
+    </div>
+
+
+    <!-- Save -->
+
+    <button
+        type="submit"
+        class="save-energy-btn"
+    >
+        Save Energy Data
+    </button>
+
+</form>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= DASHBOARD ================= -->
+
+        <section
+            id="dashboard"
+            class="dashboard section">
+
+
+            <div class="section-heading">
+
+                <p>
+                    ENERGY ANALYTICS
+                </p>
+
+                <h2>
+                    Energy Dashboard
+                </h2>
+
+                <span>
+                    Monitor your electricity
+                    consumption and efficiency.
+                </span>
+
+            </div>
+
+
+
+            <!-- ================= STATISTICS ================= -->
+
+            <div class="stats-container">
+
+
+                <div class="stat-card">
+
+                    <span>
+                        ⚡
+                    </span>
+
+                    <p>
+                        Today's Usage
+                    </p>
+
+                    <h3>
+                        {{ energy["energy_usage"] }} kWh
+                    </h3>
+
+                </div>
+
+
+
+                <div class="stat-card">
+
+                    <span>
+                        💰
+                    </span>
+
+                    <p>
+                        Estimated Cost
+                    </p>
+
+                    <h3>
+                        ₹{{ energy["cost"] }}
+                    </h3>
+
+                </div>
+
+
+
+                <div class="stat-card">
+
+                    <span>
+                        🌱
+                    </span>
+
+                    <p>
+                        Energy Saved
+                    </p>
+
+                    <h3>
+                        {{ energy["energy_saved"] }}%
+                    </h3>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ================= CHART ================= -->
+
+            <div class="charts-container">
+
+
+               <div class="chart-card">
+
+    <div class="chart-header">
+
+        <h3>
+            Appliance Consumption
+        </h3>
+
+    </div>
+
+    <canvas id="applianceChart"></canvas>
+
+</div>
+
+
+<!-- Appliance data for Chart.js -->
+
+<script type="application/json" id="applianceData">
+[
+    {% for appliance in appliances %}
+
+    {
+        "name": {{ appliance["name"]|tojson }},
+        "usage": {{ (appliance["power"] * appliance["hours"] / 1000)|round(2) }}
+
+    }{% if not loop.last %},{% endif %}
+
+    {% endfor %}
+]
+</script>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= APPLIANCES ================= -->
+
+        <section
+            id="appliances"
+            class="appliances section">
+
+
+            <div class="section-heading">
+
+                <p>
+                    ENERGY MONITORING
+                </p>
+
+                <h2>
+                    Your Appliances
+                </h2>
+
+                <span>
+                    Add appliances and track
+                    their energy consumption.
+                </span>
+
+            </div>
+
+
+
+            <!-- ADD APPLIANCE FORM -->
+
+            <div class="appliance-form">
+
+
+                <h3>
+                    Add Appliance
+                </h3>
+
+
+                <form
+                    action="{{ url_for('add_appliance') }}"
+                    method="POST">
+
+
+                    <!-- NAME -->
+
+                    <div class="form-group">
+
+                        <label for="appliance-name">
+                            Appliance Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="appliance-name"
+                            name="name"
+                            placeholder="e.g. Air Conditioner"
+                            required>
+
+                    </div>
+
+
+
+                    <!-- POWER -->
+
+                    <div class="form-group">
+
+                        <label for="power">
+                            Power Rating (Watts)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="power"
+                            name="power"
+                            placeholder="e.g. 1500"
+                            min="0"
+                            step="0.01"
+                            required>
+
+                    </div>
+
+
+
+                    <!-- HOURS -->
+
+                    <div class="form-group">
+
+                        <label for="hours">
+                            Daily Usage (Hours)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="hours"
+                            name="hours"
+                            placeholder="e.g. 6"
+                            min="0"
+                            max="24"
+                            step="0.1"
+                            required>
+
+                    </div>
+
+
+
+                    <button type="submit">
+
+                        Add Appliance
+
+                    </button>
+
+
+                </form>
+
+
+            </div>
+
+
+
+            <!-- ================= APPLIANCE LIST ================= -->
+
+            <div class="appliance-list">
+
+
+                {% if appliances %}
+
+
+                    {% for appliance in appliances %}
+
+
+                    <div class="appliance-card">
+
+
+                        <span>
+                            ⚡
+                        </span>
+
+
+                        <div>
+
+                            <h3>
+                                {{ appliance["name"] }}
+                            </h3>
+
+
+                            <p>
+
+                                {{ appliance["power"] }} W
+
+                                •
+
+                                {{ appliance["hours"] }} hrs/day
+
+                            </p>
+
+                        </div>
+
+
+                        <strong>
+
+                            {{
+                                "%.2f"|format(
+                                    appliance["power"]
+                                    * appliance["hours"]
+                                    / 1000
+                                )
+                            }}
+
+                            kWh/day
+
+                        </strong>
+
+
+
+                        <!-- DELETE -->
+
+                        <form
+                            action="{{
+                                url_for(
+                                    'delete_appliance',
+                                    appliance_id=appliance['id']
+                                )
+                            }}"
+                            method="POST">
+
+
+                            <button
+                                type="submit"
+                                title="Delete Appliance">
+
+                                ✕
+
+                            </button>
+
+
+                        </form>
+
+
+                    </div>
+
+
+                    {% endfor %}
+
+
+                {% else %}
+
+
+                    <div class="chart-card">
+
+                        <p style="
+                            text-align:center;
+                            color:#aab8d0;
+                            padding:20px;
+                        ">
+
+                            No appliances added yet.
+                            Add your first appliance above.
+
+                        </p>
+
+                    </div>
+
+
+                {% endif %}
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= AI PREDICTION ================= -->
+
+        <section
+            id="prediction"
+            class="prediction section">
+
+
+            <div class="section-heading">
+
+                <p>
+                    ARTIFICIAL INTELLIGENCE
+                </p>
+
+                <h2>
+                    AI Energy Prediction
+                </h2>
+
+                <span>
+                    Predict your future energy
+                    consumption using machine learning.
+                </span>
+
+            </div>
+
+
+
+            <div class="prediction-container">
+
+
+                <div class="prediction-info">
+
+
+                    <h3>
+                        Tomorrow's Prediction
+                    </h3>
+
+
+                    <div class="prediction-value">
+
+                        <strong>
+                            0 kWh
+                        </strong>
+
+                        <span>
+                            0%
+                        </span>
+
+                    </div>
+
+
+                    <p>
+
+                        Based on your previous
+                        energy usage, appliance
+                        activity, and environmental
+                        conditions.
+
+                    </p>
+
+
+                </div>
+
+
+
+                <div class="prediction-details">
+
+
+                    <div>
+
+                        <span>
+                            Predicted Cost
+                        </span>
+
+                        <strong>
+                            ₹0
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Confidence
+                        </span>
+
+                        <strong>
+                            0%
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Expected Usage
+                        </span>
+
+                        <strong>
+                            0 kWh
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= OPTIMIZATION ================= -->
+
+        <section
+            id="optimization"
+            class="optimization section">
+
+
+            <div class="section-heading">
+
+                <p>
+                    SMART RECOMMENDATIONS
+                </p>
+
+                <h2>
+                    AI Energy Advisor
+                </h2>
+
+                <span>
+                    Personalized recommendations
+                    to reduce energy consumption.
+                </span>
+
+            </div>
+
+
+
+            <div class="recommendation-container">
+
+
+                <div class="recommendation-card high">
+
+
+                    <span>
+                        ⚠️
+                    </span>
+
+
+                    <div>
+
+                        <h3>
+                            High AC Consumption
+                        </h3>
+
+
+                        <p>
+
+                            Your air conditioner
+                            is responsible for
+                            approximately 42% of
+                            your total energy usage.
+
+                        </p>
+
+
+                        <strong>
+                            Potential Saving:
+                            ₹420/month
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="recommendation-card">
+
+
+                    <span>
+                        💡
+                    </span>
+
+
+                    <div>
+
+                        <h3>
+                            Optimize Lighting
+                        </h3>
+
+
+                        <p>
+
+                            Turn off unused lights
+                            and consider using
+                            energy-efficient LED bulbs.
+
+                        </p>
+
+
+                        <strong>
+                            Potential Saving:
+                            ₹120/month
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="recommendation-card">
+
+
+                    <span>
+                        🌱
+                    </span>
+
+
+                    <div>
+
+                        <h3>
+                            Improve Energy Efficiency
+                        </h3>
+
+
+                        <p>
+
+                            Following these
+                            recommendations could
+                            reduce your monthly
+                            consumption by up to 15%.
+
+                        </p>
+
+
+                        <strong>
+                            Potential Saving:
+                            ₹650/month
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= REPORTS ================= -->
+
+      <section id="reports" class="reports section">
+
+    <div class="section-heading">
+        <p>ENERGY REPORTS</p>
+
+        <h2>Consumption Reports</h2>
+
+        <span>
+            Analyze your energy usage over time.
+        </span>
+    </div>
+
+
+    <div class="report-container">
+
+        <div class="report-card">
+
+            <h3>Daily Consumption</h3>
+
+            <strong>
+                {{ energy["energy_usage"] }} kWh
+            </strong>
+
+            <p>
+                Today's total energy usage
+            </p>
+
+        </div>
+
+
+        <div class="report-card">
+
+            <h3>Weekly Consumption</h3>
+
+            <strong>
+                0 kWh
+            </strong>
+
+            <p>
+                Total energy used this week
+            </p>
+
+        </div>
+
+
+        <div class="report-card">
+
+            <h3>Monthly Consumption</h3>
+
+            <strong>
+                0 kWh
+            </strong>
+
+            <p>
+                Total energy used this month
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <a
+        href="{{ url_for('download_report') }}"
+        class="download-btn"
+    >
+        Download Report
+    </a>
+
+</section>
+
+
+    </main>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+
+</body>
+
+</html>
