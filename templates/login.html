@@ -7,93 +7,284 @@
 
     <title>Login | EnergyAI</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='login.css') }}">
+
+    <!-- Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
 
-    <div class="container">
+    <!-- ================= BACKGROUND ================= -->
 
-        <h1>WELCOME BACK!</h1>
+    <div class="background">
 
-        <form action="{{ url_for('login') }}" method="POST">
+        <div class="grid"></div>
 
-            <!-- Username -->
-            <label for="username">
-                <b class="username">Username:</b>
-            </label>
+        <div class="glow glow-one"></div>
+        <div class="glow glow-two"></div>
 
-            <input
-                type="text"
-                id="username"
-                name="username"
-                placeholder="Username"
-                required
-            >
+        <div class="lightning lightning-one">⚡</div>
+        <div class="lightning lightning-two">⚡</div>
 
-            <br>
+    </div>
 
 
-            <!-- Password -->
-            <label for="password" class="username">
-                <b>Password:</b>
-            </label>
+    <!-- ================= LOGIN CARD ================= -->
 
-            <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Password"
-                required
-            >
+    <div class="login-container">
 
-            <br>
+        <div class="login-card">
 
 
-            <!-- Remember Me -->
-            <input
-                type="checkbox"
-                name="remember"
-                value="remember"
-                class="check"
-            >
+            <!-- ================= BRAND ================= -->
 
-            <p class="remember">
-                Remember me
-            </p>
+            <div class="brand">
+
+                <div class="brand-logo">
+                    <span>AS</span>
+                    <div class="logo-lightning">⚡</div>
+                </div>
+
+                <h2>Ayushman Singh</h2>
+
+                <div class="presents">
+                    <span></span>
+                    PRESENTS
+                    <span></span>
+                </div>
+
+                <h1>
+                    <span class="energy-icon">⚡</span>
+                    ENERGY<span>AI</span>
+                </h1>
+
+                <p class="tagline">
+                    Smart Energy. Smarter Future.
+                </p>
+
+            </div>
 
 
-            <!-- Forgot Password -->
-            <p class="forgot-password">
-                <a href="#">Forgot Password?</a>
-            </p>
+            <!-- ================= LOGIN TITLE ================= -->
 
-            <br>
+            <div class="welcome">
 
+                <h2>WELCOME BACK!</h2>
 
-            <!-- Login Button -->
-            <button
-                class="login"
-                type="submit"
-            >
-                Login
-            </button>
+                <p>
+                    AI-Powered Energy Optimization
+                </p>
+
+            </div>
 
 
-            <!-- Create Account -->
-            <div class="create-account">
+            <!-- ================= LOGIN FORM ================= -->
 
-                <p>Don't have an account?</p>
+            <form action="/login" method="POST" class="login-form">
+
+
+                <!-- Username -->
+
+                <div class="input-wrapper">
+
+                    <label for="username">
+                        <i class="fa-regular fa-user"></i>
+                        Username
+                    </label>
+
+                    <div class="input-box">
+
+                        <i class="fa-regular fa-user input-icon"></i>
+
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            placeholder="Enter your username"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="input-wrapper">
+
+                    <label for="password">
+                        <i class="fa-solid fa-lock"></i>
+                        Password
+                    </label>
+
+                    <div class="input-box">
+
+                        <i class="fa-solid fa-lock input-icon"></i>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword()"
+                            aria-label="Show password"
+                        >
+                            <i class="fa-regular fa-eye" id="eyeIcon"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Remember / Forgot -->
+
+                <div class="login-options">
+
+                    <label class="remember">
+
+                        <input
+                            type="checkbox"
+                            name="remember"
+                        >
+
+                        <span class="checkmark"></span>
+
+                        Remember me
+
+                    </label>
+
+                    <a href="#" class="forgot">
+                        Forgot Password?
+                    </a>
+
+                </div>
+
+
+                <!-- Login Button -->
+
+                <button type="submit" class="login-btn">
+
+                    <i class="fa-solid fa-right-to-bracket"></i>
+
+                    LOGIN
+
+                </button>
+
+
+            </form>
+
+
+            <!-- ================= DIVIDER ================= -->
+
+            <div class="divider">
+
+                <span></span>
+
+                <p>OR</p>
+
+                <span></span>
+
+            </div>
+
+
+            <!-- ================= REGISTER ================= -->
+
+            <div class="register">
+
+                <p>
+                    Don't have an account?
+                </p>
 
                 <a href="{{ url_for('register') }}">
                     Create Account
+                    <i class="fa-solid fa-arrow-right"></i>
                 </a>
 
             </div>
 
-        </form>
+
+        </div>
+
+
+        <!-- ================= FOOTER ================= -->
+
+        <div class="login-footer">
+
+            <div class="footer-brand">
+
+                <div class="footer-logo">
+                    AS
+                </div>
+
+                <div class="footer-name">
+                    Ayushman Singh
+                </div>
+
+            </div>
+
+            <div class="footer-role">
+                DEVELOPER
+                <span>•</span>
+                INNOVATOR
+                <span>•</span>
+                PROBLEM SOLVER
+            </div>
+
+            <p>
+                © 2026 Ayushman Singh |
+                All Rights Reserved
+            </p>
+
+        </div>
 
     </div>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        function togglePassword() {
+
+            const password =
+                document.getElementById("password");
+
+            const eyeIcon =
+                document.getElementById("eyeIcon");
+
+
+            if (password.type === "password") {
+
+                password.type = "text";
+
+                eyeIcon.classList.remove("fa-eye");
+
+                eyeIcon.classList.add("fa-eye-slash");
+
+            } else {
+
+                password.type = "password";
+
+                eyeIcon.classList.remove("fa-eye-slash");
+
+                eyeIcon.classList.add("fa-eye");
+
+            }
+
+        }
+
+    </script>
 
 </body>
 
