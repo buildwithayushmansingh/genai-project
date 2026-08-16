@@ -771,19 +771,7 @@ if __name__ == "__main__":
         port=8000
 
     )
-@app.route("/reset-database", methods=["POST"])
-def reset_database():
-    conn = get_db()
 
-    conn.execute("DELETE FROM appliances")
-    conn.execute("DELETE FROM energy_data")
-    conn.execute("DELETE FROM users")
-
-    conn.commit()
-    conn.close()
-
-    return "Database reset successfully!"
-@app.route("/reset-database", methods=["POST"])
 def reset_database():
     conn = get_db()
 
